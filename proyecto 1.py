@@ -64,7 +64,9 @@ elif elegir_fuente == '5':
     elegir_fuente = "COOPBL.TTF"
 elif elegir_fuente == '6':
     elegir_fuente = "ALGER.TTF"
-fuente = ImageFont.truetype(elegir_fuente, 20)  # Asegúrate de tener la fuente Arial disponible
+else:
+    print("Opción no válida, se usará Arial por defecto.")
+    elegir_fuente = "arial.ttf"
 
 print("eligue el color para las letras")
 print("""
@@ -97,6 +99,10 @@ for i, afirmacion in enumerate(afirmaciones):
     draw = ImageDraw.Draw(imagen)
     ancho_imagen, alto_imagen = imagen.size
 
+    #ajustamos el tamaño y la tipografia
+    tamaño_fuente = int(ancho_imagen * 0.05)  # Tamaño de fuente proporcional al ancho de la imagen
+    fuente = ImageFont.truetype(elegir_fuente, tamaño_fuente)  # Asegúrate de tener la fuente seleccionada disponible
+
     # Ajustamos la afirmación para que quepa en la imagen
     max_ancho = int(ancho_imagen * 0.8)  # 80% del ancho de la imagen
     lineas = textwrap.wrap(afirmacion, width=30)  # Ajustamos el ancho de las líneas
@@ -121,7 +127,7 @@ for i, afirmacion in enumerate(afirmaciones):
     salida = f"imagenes_con_afirmaciones/{afirmacion}_{i + 1}.jpg"
     imagen.save(salida)
     print(f"Imagen guardada como {salida} en la carpeta 'imagenes_con_afirmaciones'.")
-
+print(" ")
 print("Todas las imágenes han sido procesadas y guardadas.")
 print("¡Gracias por usar el generador de imágenes con afirmaciones!")
 
