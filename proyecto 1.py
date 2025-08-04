@@ -91,6 +91,21 @@ else:
     print("Opción no válida, se usará blanco por defecto.")
     color = "white"
 #carpeta de salida
+
+print("""color para el contorno?:
+      1. blanco
+      2. negro
+      """)
+color_contorno_opcion = input()
+if color_contorno_opcion == '1':
+    color_contorno = "white"
+elif color_contorno_opcion == '2':
+    color_contorno = "black"
+else:
+    print("Opción no válida, se usará negro por defecto.")
+    color_contorno = "black"
+
+#la carpeta por si no esta
 os.makedirs('imagenes_con_afirmaciones', exist_ok=True)
 
 #procesamos la imagen
@@ -120,6 +135,13 @@ for i, afirmacion in enumerate(afirmaciones):
         box = draw.textbbox((0, 0), linea, font=fuente)
         ancho_texto = box[2] - box[0]
         x = (ancho_imagen - ancho_texto) // 2
+
+        grosor = 2  # Grosor del borde
+        # Dibujar borde alrededor del texto
+        for dx in range(-grosor, grosor + 1):
+            for dy in range(-grosor, grosor + 1):
+                if dx != 0 or dy != 0:
+                    draw.text((x + dx, y + dy), linea, font=fuente, fill=color_contorno)
         draw.text((x, y), linea, font=fuente, fill=color)
         y += box[3] - box[1] + 10   # Espacio entre líneas
 
